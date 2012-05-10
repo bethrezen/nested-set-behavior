@@ -888,7 +888,9 @@ class NestedSetBehavior extends CActiveRecordBehavior
 	private function correctCachedOnAddNode($key)
 	{
 		$owner=$this->getOwner();
-
+		if (!isset(self::$_cached[get_class($owner)])) {
+			return;
+		}
 		foreach(self::$_cached[get_class($owner)] as $node)
 		{
 			if($node->getIsNewRecord() || $node->getIsDeletedRecord())
